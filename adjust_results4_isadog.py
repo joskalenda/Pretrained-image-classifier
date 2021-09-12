@@ -85,3 +85,30 @@ def adjust_results4_isadog(results_dic, dogfile):
 
             # Reads in next line in file to be processed with while loop
             line = infile.readline()
+
+      # then label "is a dog" index3/4=1 otherwise index3/4=0 "not a dog"
+    for key in results_dic:
+
+        # Pet Image Label IS of Dog (e.g. found in dognames_dic)
+        if results_dic[key][0] in dognames_dic:
+            
+            # Classifier Label IS image of Dog (e.g. found in dognames_dic)
+            # appends (1, 1) because both labels are dogs
+            if results_dic[key][1] in dognames_dic:
+                results_dic[key].extend((1, 1))
+            else:
+                results_dic[key].extend((1, 0))
+
+        # Pet Image Label IS NOT a Dog image (e.g. NOT found in dognames_dic)
+        else:
+             # appends (0, 1)because only Classifier labe is a dog
+            if results_dic[key][1] in dognames_dic:
+                results_dic[key].extend((0, 1))
+            # appends (0, 0) because both labels aren't dogs
+            else:
+                results_dic[key].extend((0, 0))
+    
+    
+    return None 
+
+    
