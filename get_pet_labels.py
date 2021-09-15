@@ -40,21 +40,44 @@ def get_pet_labels(image_dir):
       List. The list contains for following item:
          index 0 = pet image label (string)
     """
-    file_list = listdir(image_dir)
-    results_dic = {}
-    len_file_list len(file_list)
-    i = 0
-    while i < len_file_list :
-        print(file_list[i]
-        i +=1
-        if file_list[i][0] != ".":
-              is_pet = ""
-              if file_list[i] not in results_dic :
-              
-                  results_dic[file_list[i]] = [is_pet]
-              else :
-                  print("Warning: Duplicate files exist in directory: {}".format(file_list[i]))
- 
-    # Replace None with the results_dic dictionary that you created with this
-    # function
-    return results_dic
+    results_dic = dict()
+    
+#     # Retrieves the file names from the folder specified as 'image_dir' 
+    filenames_list = listdir(image_dir)
+        
+#     # Processes the filenames to create the pet image labels
+#     # Retrieves the filenames from folder pet_images/
+    for i in range (0, len(filenames_list), 1):
+#         # Skips file if starts with . (like .DS_Store of Mac OSX) because it 
+#         # isn't an pet image file
+        if filenames_list[i][0] != ".":
+#               # Reads respectively indexed element from filenames_list into temporary string variable 'pet_image' 
+            pet_image = filenames_list[i]
+#             # Sets all characters in 'pet_image' to lower case 
+            pet_image_lower = pet_image.lower()
+#             # Creates list called 'pet_image_word_list' that contains every element in pet_image_lower seperated by '_'
+            pet_image_word_list = pet_image_lower.split("_")
+#             # Creates temporary variable 'pet_label' to hold pet label name extracted starting as empty string
+            pet_image_alpha = ""
+#             # Iterates through every word in 'pet_image_word_list' and appends word to 'pet_label_alpha' only if word consists 
+#             # purely of alphabetic characters 
+            for word in pet_image_word_list:
+                if word.isalpha():
+                         pet_image_alpha += word + " "
+#             # Removes possible leading or trailing whitespace characters from 'pet_pet_image_alpha' and add stores final label as 'pet_label' 
+            pet_label = pet_image_alpha.strip()
+
+#             # Adds the original filename as 'key' and the created pet_label as 'value' to the 'results_dic' dictionary if 'key' does 
+#             # not yet exist in 'results_dic', otherwise print Warning message 
+            if filenames_list[i] not in results_dic:
+                results_dic[filenames_list[i]] = [pet_label]
+            else:
+                print("** Warning: Key = ", filenames_list[i], " already in 'results_dic' with value = ", results_dic[filenames_list[i]])
+            
+#     # Iterates through the 'results_dic' dictionary and prints its keys and their associated values
+    print("\nPrinting: All 'key' - 'value' pairs in dictionary results_dic: ")
+    for key in results_dic:
+        print("Filename = ", key, "   Pet Label = ", results_dic[key])
+    
+#     # Returns results_dic
+    return results_dic 
