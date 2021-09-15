@@ -45,8 +45,12 @@ def get_input_args():
                         help='path to folder of images')
     parse.add_argument('--dogfile', default = 'dognames.txt')
     parse.add_argument('--arch', default = 'vgg')
-   
-
+    in_args = parser.parse_args()
+    
+    # you created with this function
+    print("Path to Image Folder:", in_args.dir)
+    print("Path to CNN Model Architecture:", in_args.arch)  
+    print("Path to Text File with Dog Names:", in_args.dogfile)
     return parse.parse_args()
     # Create 3 command line arguments as mentioned above using add_argument() from ArguementParser method
     
